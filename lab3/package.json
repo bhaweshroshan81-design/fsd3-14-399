@@ -2,10 +2,10 @@
   "name": "lab-3",
   "version": "1.0.0",
   "description": "hyper text transfer protocol\r html - hyper text markup language\r css - cascade style sheet\r Reandering - give the content of html on browser\r npm - node package manager",
-  "main": "prg2.js",
+  "main": "prg5.js",
   "scripts": {
-    "start": "node prg2.js", 
-    "dev": "nodemon prg2.js"
+    "start": "node prg5.js", 
+    "dev": "nodemon prg5.js"
   },
   "keywords": [],
   "author": "",

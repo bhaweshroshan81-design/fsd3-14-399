@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentSphere | AI Agent Directory & Portal</title>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --border: #334155;
+            --success: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar Layout */
+        .navbar {
+            background-color: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-decoration: none;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent);
+        }
+
+        /* Base Content container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        /* Views management via Javascript */
+        .view {
+            display: none;
+        }
+
+        .view.active-view {
+            display: block;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Home View styling */
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .agent-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.1);
+        }
+
+        .agent-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border);
+            background: #111827;
+        }
+
+        .agent-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .agent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .agent-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.6rem;
+            border-radius: 0.375rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tag-autonomous { background-color: rgba(3, 105, 161, 0.3); color: #38bdf8; border: 1px solid rgba(3, 105, 161, 0.5); }
+        .tag-developer { background-color: rgba(67, 56, 202, 0.3); color: #818cf8; border: 1px solid rgba(67, 56, 202, 0.5); }
+        .tag-productivity { background-color: rgba(15, 118, 110, 0.3); color: #2dd4bf; border: 1px solid rgba(15, 118, 110, 0.5); }
+
+        .agent-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .agent-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .creator { color: var(--text-secondary); }
+        .creator strong { color: var(--text-primary); }
+
+        .btn {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .btn:hover { color: var(--accent-hover); }
+
+        /* General Inner Pages Formatting */
+        .page-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 1rem;
+        }
+
+        .page-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .page-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+
+        /* Contact Form Layout */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .submit-btn {
+            background-color: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Footer View */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            background-color: #0b0f19;
+            margin-top: auto;
+        }
+
+        /* Media Queries for Grid Responsiveness */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2rem; }
+            .nav-container { flex-direction: column; gap: 1rem; text-align: center; }
+            .page-content { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a onclick="navigateTo('/')" class="logo">AgentSphere</a>
+            <ul class="nav-links">
+                <li><a onclick="navigateTo('/')" id="link-home" class="active">Home</a></li>
+                <li><a onclick="navigateTo('/product')" id="link-product">Products</a></li>
+                <li><a onclick="navigateTo('/about')" id="link-about">About</a></li>
+                <li><a onclick="navigateTo('/contact')" id="link-contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- App View Containers -->
+    <div class="container">
+        
+        <!-- HOME VIEW (AI AGENTS LIST) -->
+        <div id="view-home" class="view active-view">
+            <header>
+                <h1>AI Agent Directory</h1>
+                <p>A curated dashboard of modern autonomous systems, programmatic developer workspaces, and multi-agent systems.</p>
+            </header>
+
+            <main class="agent-grid">
+                <!-- Agent Card 1 -->
+                <div class="agent-card">
+                    <img src="https://shutterstock.com" alt="Autonomous Workspace Agent Illustration" class="agent-img">
+                    <div class="agent-body">
+                        <div class="agent-header">
+                            <div class="agent-name">Devin</div>
