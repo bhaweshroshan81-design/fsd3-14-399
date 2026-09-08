@@ -1,11 +1,36 @@
 import http from "http";
+// import * as teams from 'teams.js';
+import { getAllTeams} from "./teams.js";
+const PORT = 5000;
 
-const server = http.createServer();
-server.on('request', (req, res) =>{
-    res.end("<h1>SIH Interal</h1>")
-    });
+const sendJson = (res, statusCode, data) => {
+    res.writeHead(statusCode, {"content-type": "application/json"});
+    res.end(data === "undefined" ? "": JSON.stringify(data));
+    };
 
-server.listen(5000, () => {               // nameless function
+    const parseJSONBody = (req) => {
+        new Promise((resolve, reject) => {
+            let body ='';
+            req.on("data", (chunk) => {
+                body += chunk.toString();
+            });
+            req.on("end", () => {
+                try{
+                    resolve(body ? JSON.parse(body) : {});  
+                } catch (error) {
+                    reject(error);
+                }
+            }
+                )
+        })
+    }
+const server = http.createServer((req, res) => {
+    
+});
+
+
+
+server.listen(PORT, () => {               // nameless function
     console.log("SHI Server is running on port 5000...")
 
 })
