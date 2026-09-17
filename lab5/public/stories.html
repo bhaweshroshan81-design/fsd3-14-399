@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Stories - HeartSync</title>
+    <style>
+        :root {
+            --primary: #ff4a5a;
+            --primary-hover: #e03d4c;
+            --dark: #111827;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --border: #e5e7eb;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+        .hero {
+            background: linear-gradient(rgba(17, 24, 39, 0.7), rgba(17, 24, 39, 0.7)), url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1200&q=80') center/cover;
+            color: white;
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+        .story-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease;
+        }
+        .story-card:hover {
+            transform: translateY(-5px);
+        }
+        .story-img {
+            width: 100%;
+            height: 250px;
+            background-color: #e5e7eb;
+            object-fit: cover;
+        }
+        .story-content {
+            padding: 2rem;
+        }
+        .story-names {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .story-meta {
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .story-text {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+        .quote {
+            font-style: italic;
+            border-left: 3px solid var(--primary);
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="index.html" class="logo">HeartSync</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="match.html">Find Matches</a>
+                <a href="stories.html" class="active">Success Stories</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Real Love Stories</h1>
+        <p>Thousands of couples started their journey right here. Discover how they found their perfect match.</p>
+    </section>
+
+    <main class="main-container">
+        <div class="stories-grid">
+            <div class="story-card">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" alt="Sarah and David" class="story-img">
+                <div class="story-content">
+                    <div class="story-names">Sarah & David</div>
+                    <div class="story-meta">Married • 2 Years Together</div>
+                    <p class="quote">"We clicked instantly on our first date over shared local history and coffee."</p>
+                    <p class="story-text">Sarah and David both joined HeartSync looking for genuine connections. After matching, they spent three weeks talking before meeting up. Today, they are happily married and credit the platform's detailed alignment features.</p>
+                </div>
+            </div>
+
+            <div class="story-card">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80" alt="Elena and Marcus" class="story-img">
+                <div class="story-content">
+                    <div class="story-names">Elena & Marcus</div>
+                    <div class="story-meta">Engaged • 3 Years Together</div>
+                    <p class="quote">"The Icebreaker dynamic helped bypass all the initial surface-level awkwardness."</p>
+                    <p class="story-text">Elena was ready to give up on dating apps until Marcus sent a response to her custom icebreaker prompt. They discovered a mutual love for hiking, and Marcus proposed last winter on top of Mount Mitchell.</p>
+                </div>
+            </div>
+
+            <div class="story-card">
+                <img src="https://images.unsplash.com/photo-1464746133101-a2c3f88e0dd9?auto=format&fit=crop&w=600&q=80" alt="Jason and Amara" class="story-img">
+                <div class="story-content">
+                    <div class="story-names">Jason & Amara</div>
+                    <div class="story-meta">In a Relationship • 1 Year Together</div>
+                    <p class="quote">"It's refreshing to meet someone who truly aligns with your core values."</p>
+                    <p class="story-text">Jason and Amara lived only two miles apart but never crossed paths until HeartSync's matchmaking algorithm paired them with a 96% compatibility index score. They've been inseparable ever since.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 HeartSync. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
